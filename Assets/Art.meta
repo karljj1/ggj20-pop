@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: c1d2af71aaa5bd540b28e736a6847953
+<<<<<<< Updated upstream:Assets/Art.meta
+guid: 22a5190e9f56fc042a859d23e3f323cd
 folderAsset: yes
+=======
+guid: 343c809e3569de94aa08f360ae8da0a6
+>>>>>>> Stashed changes:Assets/Level 1 DRAFT.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
