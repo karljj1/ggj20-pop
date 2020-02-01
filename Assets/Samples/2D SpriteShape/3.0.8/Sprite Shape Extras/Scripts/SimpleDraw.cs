@@ -39,6 +39,7 @@ public class SimpleDraw : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         var mp = Input.mousePosition;
         mp.z = 10.0f;
         mp = Camera.main.ScreenToWorldPoint(mp);
@@ -55,5 +56,6 @@ public class SimpleDraw : MonoBehaviour
             spline.SetHeight(newPointIndex, UnityEngine.Random.Range(0.1f, 2.0f));
             lastPosition = mp;
         }
+        */
     }
 }
