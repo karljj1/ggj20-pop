@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="317.558px" height="823.287px" viewBox="0 0 317.558 823.287" enable-background="new 0 0 317.558 823.287"
+	 xml:space="preserve">
+<title>healthbar</title>
+<g>
+	
+		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="154.5493" y1="681.162" x2="161.0744" y2="56.929" gradientTransform="matrix(1 0 0 -1 0 826)">
+		<stop  offset="0" style="stop-color:#A2B76A"/>
+		<stop  offset="1" style="stop-color:#2E5C36"/>
+	</linearGradient>
+	<path fill="url(#SVGID_1_)" d="M158.303,203.287L158.303,203.287c14.402,0,26.077,11.675,26.077,26.076v549.251
+		c0,14.401-11.675,26.076-26.076,26.076h-0.001c-14.401,0-26.076-11.675-26.076-26.076V229.363
+		C132.227,214.962,143.902,203.287,158.303,203.287z"/>
+</g>
+</svg>
