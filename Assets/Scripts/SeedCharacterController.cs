@@ -18,6 +18,7 @@ public class SeedCharacterController : MonoBehaviour
     public List<SeedState> m_States;
     int m_CurrentState;
     SeedState m_ActiveState;
+    public GameObject popEffect;
 
     #region References
     public Transform cameraFollowTarget;
@@ -234,6 +235,15 @@ public class SeedCharacterController : MonoBehaviour
             else if (Healthbar.CurrentHealth <= nextState.blinkStart)
             {
                 anim.SetInteger("BlinkState", 2);
+            }
+        }
+        else
+        {
+            if (Healthbar.CurrentHealth <= 0)
+            {
+                m_ActiveState.visuals.SetActive(false);
+                Instantiate(popEffect, m_ActiveState.visuals.transform.position, Quaternion.identity);
+                enabled = false;
             }
         }
     }
