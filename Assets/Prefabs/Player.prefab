@@ -365,6 +365,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55be40d5570268848a893f73bc56b366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_States:
+  - visuals: {fileID: 3101455283839907913}
+    timeStart: 1
+    blinkStart: 1.1
+  - visuals: {fileID: 3101455284858496992}
+    timeStart: 0.7
+    blinkStart: 0.75
+  - visuals: {fileID: 3101455285862564703}
+    timeStart: 0.3
+    blinkStart: 0.35
+  popEffect: {fileID: 258188536224153451, guid: 4ae249540564f41aca25e957b7b96f0d,
+    type: 3}
   cameraFollowTarget: {fileID: 0}
   spriteRenderer: {fileID: 0}
   anim: {fileID: 0}
@@ -377,7 +389,6 @@ MonoBehaviour:
   downgradeWaitTime1: 5
   downgradeWaitTime2: 2.25
   startingBloomState: 2
-  inWater: 0
   m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338

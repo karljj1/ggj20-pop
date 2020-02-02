@@ -121,18 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &70560702 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3101455284858496992, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1618757319}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &223389190 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3101455285862564703, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1618757319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &302569790
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,12 +576,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51d9ef74b8036441ead331e5c20b5391, type: 3}
---- !u!1 &1173290684 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3101455283839907913, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1618757319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1618757319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -601,72 +583,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: inWater
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[0].visuals
-      value: 
-      objectReference: {fileID: 1173290684}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[1].visuals
-      value: 
-      objectReference: {fileID: 70560702}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[2].visuals
-      value: 
-      objectReference: {fileID: 223389190}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[0].timeStart
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[1].timeStart
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[2].timeStart
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[1].blinkStart
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[2].blinkStart
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_States.Array.data[0].blinkStart
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3101455285610715336, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: popEffect
-      value: 
-      objectReference: {fileID: 258188536224153451, guid: 4ae249540564f41aca25e957b7b96f0d,
-        type: 3}
-    - target: {fileID: 3101455285610715338, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
-        type: 3}
-      propertyPath: m_Simulated
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3101455285610715339, guid: 70fa97a2fa58e98438ecb3b8dc81e9eb,
         type: 3}
       propertyPath: m_LocalPosition.x
