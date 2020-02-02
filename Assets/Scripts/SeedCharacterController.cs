@@ -183,7 +183,8 @@ public class SeedCharacterController : MonoBehaviour
 	void MovementPhysics()
 	{
 		rb.velocity = new Vector2(m_MoveDir * moveSpeed, rb.velocity.y);
-	}
+        anim.SetFloat("Walk", Mathf.Abs(rb.velocity.x));
+    }
 
 	void MotionPhysics()
 	{
