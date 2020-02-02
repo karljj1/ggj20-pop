@@ -34,6 +34,8 @@ public class SeedCharacterController : MonoBehaviour
 	public GameObject budObject;
 	public GameObject bloomObject;
 	List<Collider2D> playerColliders = new List<Collider2D>();
+	List<LockedDoor> doorCollection = new List<LockedDoor>();
+	List<Key> keyCollection = new List<Key>();
 	List<WaterField> waterCollection = new List<WaterField>();
 	PlayerSpawner playerSpawner;
     #endregion
@@ -66,6 +68,8 @@ public class SeedCharacterController : MonoBehaviour
 		anim = GetComponent<Animator>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		playerColliders.AddRange(GetComponentsInChildren<Collider2D>());
+		doorCollection.AddRange(FindObjectsOfType<LockedDoor>());
+		keyCollection.AddRange(FindObjectsOfType<Key>());
 		waterCollection.AddRange(FindObjectsOfType<WaterField>());
 		//_collider = GetComponent<Collider2D>();
 		groundMask = LayerMask.GetMask("Ground");
@@ -412,6 +416,17 @@ public class SeedCharacterController : MonoBehaviour
 	void Death()
 	{
 		foreach (WaterField item in waterCollection)
+		{
+			item.gameObject.SetActive(true);
+		}
+
+		foreach (LockedDoor item in doorCollection)
+		{
+			item.isOpen = false;
+			anim.SetBool("doorOpen", false);
+		}
+
+		foreach (Key item in keyCollection)
 		{
 			item.gameObject.SetActive(true);
 		}

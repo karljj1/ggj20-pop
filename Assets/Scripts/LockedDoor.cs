@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LockedDoor : MonoBehaviour
 {
-	Animator anim;
+	public Animator anim;
 	public bool isOpen;
 
 	private void Awake()

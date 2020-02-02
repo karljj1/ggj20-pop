@@ -9,7 +9,7 @@ public class Key : MonoBehaviour
 		if (collision.tag == "Player")
 		{
 			collision.GetComponent<SeedCharacterController>().keys++;
-			Destroy(gameObject);
+			gameObject.SetActive(false);
 		}
 	}
 }
