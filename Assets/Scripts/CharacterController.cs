@@ -19,6 +19,7 @@ public class CharacterController : MonoBehaviour
 	public GameObject budObject;
 	public GameObject bloomObject;
 	List<Collider2D> playerColliders = new List<Collider2D>();
+	
 	#endregion
 
 	#region Public variables
@@ -40,7 +41,7 @@ public class CharacterController : MonoBehaviour
 
 	#region Private variables
 	InputSystem m_Controls;
-	float m_MoveDir;
+	public float m_MoveDir;
 	bool canJump;
 	Collider2D currentPassedPlatformCollider;
 	bool passingThrough;
@@ -194,6 +195,9 @@ public class CharacterController : MonoBehaviour
 			canJump = true;
 		else
 			canJump = false;
+
+
+		//Debug.DrawLine(Physics2D.Raycast(transform.position, transform.position + new Vector3(), 100000));
 
 		//if (Physics2D.CheckCapsule(_collider.bounds.center, new Vector3(_collider.bounds.center.x, _collider.bounds.min.y - 0.1f, _collider.bounds.center.z), 0.18f))
 		//{
