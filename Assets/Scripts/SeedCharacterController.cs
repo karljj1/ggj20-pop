@@ -43,6 +43,7 @@ public class SeedCharacterController : MonoBehaviour
 	public float downgradeWaitTime1;
 	public float downgradeWaitTime2;
 	public int startingBloomState;
+	public int keys;
 	#endregion
 	
 	#region Private variables
