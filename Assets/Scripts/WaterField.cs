@@ -20,7 +20,7 @@ public class WaterField : MonoBehaviour
 	{
 		if (collision.tag == "Player")
 		{
-			collision.GetComponent<CharacterController>().inWater = true;
+			collision.GetComponent<SeedCharacterController>().inWater = true;
 		}
 	}
 }

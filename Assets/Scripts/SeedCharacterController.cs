@@ -5,14 +5,25 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEngine.InputSystem.InputAction;
 
-public class CharacterController : MonoBehaviour
+public class SeedCharacterController : MonoBehaviour
 {
-	#region References
-	public Transform cameraFollowTarget;
+    [System.Serializable]
+    public class SeedState
+    {
+        public GameObject visuals;
+        public float timeStart;
+        public float blinkStart;
+    }
+
+    public List<SeedState> m_States;
+    int m_CurrentState;
+    SeedState m_ActiveState;
+
+    #region References
+    public Transform cameraFollowTarget;
 	public SpriteRenderer spriteRenderer;
 	private Rigidbody2D rb;
 	public Animator anim;
-	Collider2D _collider;
 	LayerMask groundMask;
 	LayerMask platformMask;
 	LayerMask waterMask;
@@ -22,9 +33,9 @@ public class CharacterController : MonoBehaviour
 	List<Collider2D> playerColliders = new List<Collider2D>();
 	List<WaterField> waterCollection = new List<WaterField>();
 	PlayerSpawner playerSpawner;
-	#endregion
+    #endregion
 
-	#region Public variables
+    #region Public variables
 	public float moveSpeed = 10f;
 	public float fallSpeedMultiplier;
 	public float jumpForce;
@@ -35,7 +46,6 @@ public class CharacterController : MonoBehaviour
 	#endregion
 	
 	#region Private variables
-	InputSystem m_Controls;
 	public float m_MoveDir;
 	bool canJump;
 	Collider2D currentPassedPlatformCollider;
@@ -48,14 +58,8 @@ public class CharacterController : MonoBehaviour
 
 	#region methods
 	#region starters
-	void Awake()
-	{
-		m_Controls = new InputSystem();
-	}
-
 	public void OnEnable()
 	{
-		m_Controls.Enable();
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		playerSpawner = FindObjectOfType<PlayerSpawner>();
@@ -67,16 +71,21 @@ public class CharacterController : MonoBehaviour
 		waterMask = LayerMask.GetMask("Water");
 	}
 
-	void OnDisable()
-	{
-		m_Controls.Disable();
-	}
-
 	private void Start()
 	{
-		//anim.SetInteger("FlowerForm", startingBloomState);
+        for(int i = 0; i < transform.childCount; ++i)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
 
-		switch (startingBloomState)
+
+        //anim.SetInteger("FlowerForm", startingBloomState);
+        anim = GetComponentInChildren<Animator>();
+        m_CurrentState = 0;
+        m_ActiveState = null;
+        ActivateState(m_CurrentState);
+
+        switch (startingBloomState)
 		{
 			case 0:
 				bloomState = BloomStates.Seed;
@@ -91,7 +100,7 @@ public class CharacterController : MonoBehaviour
 				break;
 		}
 
-		BloomStateOneFrameChecks();
+		//BloomStateOneFrameChecks();
 
 		SeedColliderOffset = new Vector2 (0, 0);
 		seedColliderHeight = new Vector2(1, 1.5f);
@@ -100,8 +109,9 @@ public class CharacterController : MonoBehaviour
 
 	private void Update()
 	{
+        UpdateGrowingState();
 		CheckContacts();
-		DebugFlowerState();
+		//DebugFlowerState();
 	}
 
 	private void FixedUpdate()
@@ -214,8 +224,37 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+    void UpdateGrowingState()
+    {
+        if (m_CurrentState < m_States.Count - 1)
+        {
+            var nextState = m_States[m_CurrentState + 1];
+            if (Healthbar.CurrentHealth <= nextState.timeStart)
+            {
+                anim.SetInteger("BlinkState", 0);
+                m_CurrentState++;
+                ActivateState(m_CurrentState);
+            }
+            else if (Healthbar.CurrentHealth <= nextState.blinkStart)
+            {
+                anim.SetInteger("BlinkState", 2);
+            }
+        }
+    }
 
+    void ActivateState(int state)
+    {
+       // Disable the old state if we have one
+       if (m_ActiveState != null)
+        {
+            m_ActiveState.visuals.SetActive(false);
+        }
 
+        m_ActiveState = m_States[state];
+        anim = m_ActiveState.visuals.GetComponent<Animator>();
+        m_ActiveState.visuals.SetActive(true);
+    }
+    /*
 	public IEnumerator GrowingTransition()
 	{
 		GetAnimator();
@@ -227,15 +266,16 @@ public class CharacterController : MonoBehaviour
 		foundWaterfield = Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, waterMask).collider.GetComponent<WaterField>();
 		foundWaterfield.gameObject.SetActive(false);
 	}
-
+    */
 
 	public bool CheckPassThroughPlatform()
 	{
 		return (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, platformMask));
 	}
 	#endregion
-
+      /*
 	#region BloomingTransitions
+
 	IEnumerator BloomingToBudding()
 	{
 		GetAnimator();
@@ -258,7 +298,7 @@ public class CharacterController : MonoBehaviour
 		bloomState = BloomStates.Seed;
 		BloomStateOneFrameChecks();
 	}
-
+    
 	IEnumerator SeedlingToPop()
 	{
 		yield return new WaitForSeconds(downgradeWaitTime1);
@@ -266,12 +306,7 @@ public class CharacterController : MonoBehaviour
 		//Death
 	}
 	#endregion
-
-	void GetAnimator()
-	{
-		anim = GetComponentInChildren<Animator>();
-	}
-
+    
 	void BloomStateOneFrameChecks()
 	{
 		StopAllCoroutines();
@@ -312,7 +347,8 @@ public class CharacterController : MonoBehaviour
 				break;
 		}
 	}
-
+    */
+    /*
 	void RepairPoppy()
 	{
 		switch (bloomState)
@@ -334,7 +370,8 @@ public class CharacterController : MonoBehaviour
 
 		BloomStateOneFrameChecks();
 	}
-
+    */
+    /*
 	void DebugFlowerState()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -358,7 +395,7 @@ public class CharacterController : MonoBehaviour
 			Death();
 		}
 	}
-
+    */
 	void Death()
 	{
 		foreach (WaterField item in waterCollection)
@@ -368,7 +405,7 @@ public class CharacterController : MonoBehaviour
 
 		playerSpawner.PopPlayer();
 	}
-
+    
 	public enum BloomStates { Bloom, Bud, Seed, Misc}
 
 	public BloomStates bloomState;
