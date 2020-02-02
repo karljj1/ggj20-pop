@@ -13,6 +13,7 @@ public class SeedCharacterController : MonoBehaviour
         public GameObject visuals;
         public float timeStart;
         public float blinkStart;
+        public float jumpForce;
     }
 
     public List<SeedState> m_States;
@@ -39,7 +40,6 @@ public class SeedCharacterController : MonoBehaviour
     #region Public variables
 	public float moveSpeed = 10f;
 	public float fallSpeedMultiplier;
-	public float jumpForce;
 	public float downgradeWaitTime1;
 	public float downgradeWaitTime2;
 	public int startingBloomState;
@@ -131,7 +131,7 @@ public class SeedCharacterController : MonoBehaviour
 	{
 		if (evt.phase == UnityEngine.InputSystem.InputActionPhase.Started && canJump)
 		{
-			rb.velocity = Vector2.up * jumpForce;
+			rb.velocity = Vector2.up * m_ActiveState.jumpForce;
 		}
 	}
 
