@@ -365,6 +365,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55be40d5570268848a893f73bc56b366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_States:
+  - visuals: {fileID: 3101455283839907913}
+    timeStart: 1
+    blinkStart: 1.1
+  - visuals: {fileID: 3101455284858496992}
+    timeStart: 0.7
+    blinkStart: 0.75
+  - visuals: {fileID: 3101455285862564703}
+    timeStart: 0.3
+    blinkStart: 0.35
   cameraFollowTarget: {fileID: 0}
   spriteRenderer: {fileID: 0}
   anim: {fileID: 0}
