@@ -41,6 +41,14 @@ public class @InputSystem : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dance"",
+                    ""type"": ""Button"",
+                    ""id"": ""92b36e0c-bdde-4456-b72b-b8f8b9a5f263"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +106,17 @@ public class @InputSystem : IInputActionCollection, IDisposable
                     ""action"": ""Drop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7c66a229-c852-451a-aa48-bc023230e2ec"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dance"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +128,7 @@ public class @InputSystem : IInputActionCollection, IDisposable
         m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
         m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
         m_Game_Drop = m_Game.FindAction("Drop", throwIfNotFound: true);
+        m_Game_Dance = m_Game.FindAction("Dance", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +181,7 @@ public class @InputSystem : IInputActionCollection, IDisposable
     private readonly InputAction m_Game_Move;
     private readonly InputAction m_Game_Jump;
     private readonly InputAction m_Game_Drop;
+    private readonly InputAction m_Game_Dance;
     public struct GameActions
     {
         private @InputSystem m_Wrapper;
@@ -168,6 +189,7 @@ public class @InputSystem : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_Game_Move;
         public InputAction @Jump => m_Wrapper.m_Game_Jump;
         public InputAction @Drop => m_Wrapper.m_Game_Drop;
+        public InputAction @Dance => m_Wrapper.m_Game_Dance;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +208,9 @@ public class @InputSystem : IInputActionCollection, IDisposable
                 @Drop.started -= m_Wrapper.m_GameActionsCallbackInterface.OnDrop;
                 @Drop.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnDrop;
                 @Drop.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnDrop;
+                @Dance.started -= m_Wrapper.m_GameActionsCallbackInterface.OnDance;
+                @Dance.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnDance;
+                @Dance.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnDance;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +224,9 @@ public class @InputSystem : IInputActionCollection, IDisposable
                 @Drop.started += instance.OnDrop;
                 @Drop.performed += instance.OnDrop;
                 @Drop.canceled += instance.OnDrop;
+                @Dance.started += instance.OnDance;
+                @Dance.performed += instance.OnDance;
+                @Dance.canceled += instance.OnDance;
             }
         }
     }
@@ -208,5 +236,6 @@ public class @InputSystem : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
+        void OnDance(InputAction.CallbackContext context);
     }
 }

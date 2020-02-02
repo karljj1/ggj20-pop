@@ -113,11 +113,21 @@ public class CharacterController : MonoBehaviour
 		m_MoveDir = evt.ReadValue<float>();
 	}
 
+
+
 	public void Jump(CallbackContext evt)
 	{
 		if (evt.phase == UnityEngine.InputSystem.InputActionPhase.Started && canJump)
 		{
 			rb.velocity = Vector2.up * jumpForce;
+		}
+	}
+
+	public void Dance(CallbackContext evt)
+	{
+		if (evt.phase == UnityEngine.InputSystem.InputActionPhase.Started)
+		{
+			print("Dancing");
 		}
 	}
 
