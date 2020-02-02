@@ -20,6 +20,7 @@ public class SeedCharacterController : MonoBehaviour
     int m_CurrentState;
     SeedState m_ActiveState;
     public GameObject popEffect;
+    public bool popOnStateChange;
 
     #region References
     public Transform cameraFollowTarget;
@@ -43,6 +44,7 @@ public class SeedCharacterController : MonoBehaviour
 	public float downgradeWaitTime1;
 	public float downgradeWaitTime2;
 	public int startingBloomState;
+	public int keys;
 	#endregion
 	
 	#region Private variables
@@ -183,7 +185,8 @@ public class SeedCharacterController : MonoBehaviour
 	void MovementPhysics()
 	{
 		rb.velocity = new Vector2(m_MoveDir * moveSpeed, rb.velocity.y);
-	}
+        anim.SetFloat("Walk", Mathf.Abs(rb.velocity.x));
+    }
 
 	void MotionPhysics()
 	{
@@ -255,6 +258,8 @@ public class SeedCharacterController : MonoBehaviour
        // Disable the old state if we have one
        if (m_ActiveState != null)
         {
+            if (popOnStateChange)
+                Instantiate(popEffect, m_ActiveState.visuals.transform.position, Quaternion.identity);
             m_ActiveState.visuals.SetActive(false);
         }
 

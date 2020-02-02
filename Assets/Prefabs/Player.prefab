@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3101455283839907913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.43, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3101455285610715339}
@@ -71,8 +71,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2998e19deb2236b4bbbaa970416d4996, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: 08cdc63a0652f4ae8b314a44b5a82778, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -224,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3101455284858496992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3101455285610715339}
@@ -268,10 +268,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9b8bf875250abf14a97ae992cea64f52, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: ba77bb2e573cf470187cda2a4f808c91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.5, y: 3.5}
@@ -306,7 +306,7 @@ Animator:
   m_GameObject: {fileID: 3101455284858496992}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50f4f1e63ecbd1e46a6c7455db57a6d3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 789ae1ea8d10d4fa49a1aecb7cdd7fc8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -369,17 +369,18 @@ MonoBehaviour:
   - visuals: {fileID: 3101455283839907913}
     timeStart: 1
     blinkStart: 1.1
-    jumpForce: 15
+    jumpForce: 22
   - visuals: {fileID: 3101455284858496992}
     timeStart: 0.7
     blinkStart: 0.75
-    jumpForce: 12
+    jumpForce: 16
   - visuals: {fileID: 3101455285862564703}
     timeStart: 0.3
     blinkStart: 0.35
-    jumpForce: 20
+    jumpForce: 15
   popEffect: {fileID: 258188536224153451, guid: 4ae249540564f41aca25e957b7b96f0d,
     type: 3}
+  popOnStateChange: 1
   cameraFollowTarget: {fileID: 0}
   spriteRenderer: {fileID: 0}
   anim: {fileID: 0}
@@ -391,6 +392,7 @@ MonoBehaviour:
   downgradeWaitTime1: 5
   downgradeWaitTime2: 2.25
   startingBloomState: 2
+  keys: 0
   m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338
@@ -558,7 +560,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3101455285862564703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3101455285610715339}
@@ -602,8 +604,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d235cf1128009e741815b51aceb983ca, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: bc54204f6ff9d47f592d1ffbdc7b7ad1, type: 3}
   m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -624,7 +626,7 @@ Animator:
   m_GameObject: {fileID: 3101455285862564703}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50f4f1e63ecbd1e46a6c7455db57a6d3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 726395a11255c4b55bcc4cfdea45ec81, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
