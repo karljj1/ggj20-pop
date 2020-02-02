@@ -15,30 +15,25 @@ public class CharacterController : MonoBehaviour
 	Collider2D _collider;
 	LayerMask groundMask;
 	LayerMask platformMask;
+	LayerMask waterMask;
 	public GameObject seedObject;
 	public GameObject budObject;
 	public GameObject bloomObject;
 	List<Collider2D> playerColliders = new List<Collider2D>();
-	
+	List<WaterField> waterCollection = new List<WaterField>();
+	PlayerSpawner playerSpawner;
 	#endregion
 
 	#region Public variables
 	public float moveSpeed = 10f;
 	public float fallSpeedMultiplier;
 	public float jumpForce;
-	public float bloomToBudWaitTime;
-	public float budToSeedWaitTime;
-	public float seedToPop;
+	public float downgradeWaitTime1;
+	public float downgradeWaitTime2;
 	public int startingBloomState;
-
-	//public float cameraHorizontalFacingOffset;
-	//public float cameraHorizontalSpeedOffset;
-	//public float cameraVerticalInputOffset;
-	//public float maxHorizontalDeltaDampTime;
-	//public float maxVerticalDeltaDampTime;
-	//public float verticalCameraOffsetDelay;
+	public bool inWater;
 	#endregion
-
+	
 	#region Private variables
 	InputSystem m_Controls;
 	public float m_MoveDir;
@@ -51,6 +46,8 @@ public class CharacterController : MonoBehaviour
 	Vector2 seedColliderHeight;
 	#endregion
 
+	#region methods
+	#region starters
 	void Awake()
 	{
 		m_Controls = new InputSystem();
@@ -58,13 +55,16 @@ public class CharacterController : MonoBehaviour
 
 	public void OnEnable()
 	{
+		m_Controls.Enable();
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
-		m_Controls.Enable();
+		playerSpawner = FindObjectOfType<PlayerSpawner>();
 		playerColliders.AddRange(GetComponentsInChildren<Collider2D>());
+		waterCollection.AddRange(FindObjectsOfType<WaterField>());
 		//_collider = GetComponent<Collider2D>();
 		groundMask = LayerMask.GetMask("Ground");
 		platformMask = LayerMask.GetMask("Platform");
+		waterMask = LayerMask.GetMask("Water");
 	}
 
 	void OnDisable()
@@ -96,11 +96,11 @@ public class CharacterController : MonoBehaviour
 		SeedColliderOffset = new Vector2 (0, 0);
 		seedColliderHeight = new Vector2(1, 1.5f);
 	}
+	#endregion
 
 	private void Update()
 	{
-		CheckIfGrounded();
-		CheckPassThroughPlatform();
+		CheckContacts();
 		DebugFlowerState();
 	}
 
@@ -108,13 +108,14 @@ public class CharacterController : MonoBehaviour
 	{
 		MotionPhysics();
 	}
+	#endregion
+
+	#region Inputs
 
 	public void Move(CallbackContext evt)
 	{
 		m_MoveDir = evt.ReadValue<float>();
 	}
-
-
 
 	public void Jump(CallbackContext evt)
 	{
@@ -142,36 +143,33 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	public void UpdateFaceDirection(CallbackContext evt)
+	{
+		if (evt.phase == UnityEngine.InputSystem.InputActionPhase.Performed)
+		{
+			transform.localScale = new Vector3(m_MoveDir, transform.localScale.y, transform.localScale.z);
+		}
+	}
+	#endregion
+
 	IEnumerator PassingThroughPlatform()
 	{
-		//_collider.isTrigger = true;
-
 		foreach (Collider2D collider in playerColliders)
 		{
 			collider.isTrigger = true;
 		}
 
-
-
-
 		yield return new WaitForSeconds(.2f);
-
-
-		//while (passingThrough)
-		//{
-		//	yield return null;
-		//}
 
 		foreach (Collider2D collider in playerColliders)
 		{
 			collider.isTrigger = false;
 		}
-
-		//_collider.isTrigger = false;
 		StopCoroutine(passingNowCoruitne);
 	}
-	
 
+
+	#region Physics
 	void MovementPhysics()
 	{
 		rb.velocity = new Vector2(m_MoveDir * moveSpeed, rb.velocity.y);
@@ -188,6 +186,16 @@ public class CharacterController : MonoBehaviour
 		if (rb.velocity.y < 0)
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallSpeedMultiplier - 1) * Time.deltaTime;
 	}
+	#endregion
+
+	#region Contact Checks
+
+	void CheckContacts()
+	{
+		CheckIfGrounded();
+		CheckIfWater();
+		CheckPassThroughPlatform();
+	}
 
 	void CheckIfGrounded()
 	{
@@ -195,70 +203,74 @@ public class CharacterController : MonoBehaviour
 			canJump = true;
 		else
 			canJump = false;
-
-
-		//Debug.DrawLine(Physics2D.Raycast(transform.position, transform.position + new Vector3(), 100000));
-
-		//if (Physics2D.CheckCapsule(_collider.bounds.center, new Vector3(_collider.bounds.center.x, _collider.bounds.min.y - 0.1f, _collider.bounds.center.z), 0.18f))
-		//{
-		//	canJump = false;
-		//}
-		//else
-		//	canJump = true;
 	}
+	
+	void CheckIfWater()
+	{
+		if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, waterMask))
+		{
+			StartCoroutine("GrowingTransition");
+			
+		}
+	}
+
+
+
+	public IEnumerator GrowingTransition()
+	{
+		GetAnimator();
+		anim.SetInteger("BlinkState", 1);
+		yield return new WaitForSeconds(0.3f);
+		anim.SetInteger("BlinkState", 0);
+		RepairPoppy();
+		WaterField foundWaterfield;
+		foundWaterfield = Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, waterMask).collider.GetComponent<WaterField>();
+		foundWaterfield.gameObject.SetActive(false);
+	}
+
 
 	public bool CheckPassThroughPlatform()
 	{
 		return (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, platformMask));
 	}
+	#endregion
 
-	//public void PassThroughPlatformsCheck()
-	//{
-	//	if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, platformMask))
-	//		canPassThroughPlatform = true;
-	//	else
-	//		canPassThroughPlatform = false;
-	//}
-
-
-
-	private void OnTriggerEnter(Collider other)
-	{
-		//if (other.GetComponent<LayerMask>() == platformMask)
-		//{
-		//	passingThrough = true;
-		//}
-	}
-
-	//private void OnTriggerExit2D(Collider2D collision)
-	//{
-	//	if (collision.GetComponent<LayerMask>() == platformMask)
-	//	{
-	//		passingThrough = false;
-	//	}
-	//}
-
-
+	#region BloomingTransitions
 	IEnumerator BloomingToBudding()
 	{
-		yield return new WaitForSeconds(bloomToBudWaitTime);
+		GetAnimator();
+		anim.SetInteger("BlinkState", 0);
+		yield return new WaitForSeconds(downgradeWaitTime1);
+		//GetAnimator();
+		anim.SetInteger("BlinkState", 2);
+		yield return new WaitForSeconds(downgradeWaitTime2);
 		bloomState = BloomStates.Bud;
 		BloomStateOneFrameChecks();
 	}
 
 	IEnumerator BuddingTosSeedling()
 	{
-		yield return new WaitForSeconds(budToSeedWaitTime);
+		GetAnimator();
+		anim.SetInteger("BlinkState", 0);
+		yield return new WaitForSeconds(downgradeWaitTime1);
+		anim.SetInteger("BlinkState", 2);
+		yield return new WaitForSeconds(downgradeWaitTime2);
 		bloomState = BloomStates.Seed;
 		BloomStateOneFrameChecks();
 	}
 
 	IEnumerator SeedlingToPop()
 	{
-		yield return new WaitForSeconds(budToSeedWaitTime);
+		yield return new WaitForSeconds(downgradeWaitTime1);
+		yield return new WaitForSeconds(downgradeWaitTime2);
 		//Death
 	}
+	#endregion
 
+	void GetAnimator()
+	{
+		anim = GetComponentInChildren<Animator>();
+	}
 
 	void BloomStateOneFrameChecks()
 	{
@@ -301,6 +313,28 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	void RepairPoppy()
+	{
+		switch (bloomState)
+		{
+			case BloomStates.Bloom:
+				bloomState = BloomStates.Bloom;
+				break;
+			case BloomStates.Bud:
+				bloomState = BloomStates.Bloom;
+				break;
+			case BloomStates.Seed:
+				bloomState = BloomStates.Bud;
+				break;
+			case BloomStates.Misc:
+				break;
+			default:
+				break;
+		}
+
+		BloomStateOneFrameChecks();
+	}
+
 	void DebugFlowerState()
 	{
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -318,6 +352,21 @@ public class CharacterController : MonoBehaviour
 			bloomState = BloomStates.Bloom;
 			BloomStateOneFrameChecks();
 		}
+
+		if (Input.GetKeyDown(KeyCode.O))
+		{
+			Death();
+		}
+	}
+
+	void Death()
+	{
+		foreach (WaterField item in waterCollection)
+		{
+			item.gameObject.SetActive(true);
+		}
+
+		playerSpawner.PopPlayer();
 	}
 
 	public enum BloomStates { Bloom, Bud, Seed, Misc}

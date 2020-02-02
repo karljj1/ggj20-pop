@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3101455283839907910}
   - component: {fileID: 3101455283839907908}
   - component: {fileID: 3101455283839907911}
+  - component: {fileID: 1366694924}
   m_Layer: 0
   m_Name: Bloom
   m_TagString: Untagged
@@ -98,6 +99,25 @@ CapsuleCollider2D:
   m_Offset: {x: -0.05044532, y: 5}
   m_Size: {x: 2, y: 2.5}
   m_Direction: 0
+--- !u!95 &1366694924
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101455283839907913}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50f4f1e63ecbd1e46a6c7455db57a6d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3101455284225780052
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,13 +208,14 @@ GameObject:
   - component: {fileID: 3101455284858496993}
   - component: {fileID: 3101455284858497023}
   - component: {fileID: 3101455284858497022}
+  - component: {fileID: 1717613942}
   m_Layer: 0
   m_Name: Bud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3101455284858496993
 Transform:
   m_ObjectHideFlags: 0
@@ -250,7 +271,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b8bf875250abf14a97ae992cea64f52, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 3.5, y: 3.5}
@@ -275,6 +296,25 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 2.5}
   m_Size: {x: 1.5, y: 1}
   m_Direction: 0
+--- !u!95 &1717613942
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101455284858496992}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50f4f1e63ecbd1e46a6c7455db57a6d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3101455285610715340
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,10 +328,9 @@ GameObject:
   - component: {fileID: 3101455285610715338}
   - component: {fileID: 3101455285610715341}
   - component: {fileID: 3101455285610715337}
-  - component: {fileID: 3101455285610715335}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -334,11 +373,12 @@ MonoBehaviour:
   bloomObject: {fileID: 3101455283839907913}
   moveSpeed: 10
   fallSpeedMultiplier: 2
-  jumpForce: 15
-  bloomToBudWaitTime: 5
-  budToSeedWaitTime: 5
-  seedToPop: 10
+  jumpForce: 12
+  downgradeWaitTime1: 5
+  downgradeWaitTime2: 2.25
   startingBloomState: 2
+  inWater: 0
+  m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338
 Rigidbody2D:
@@ -427,6 +467,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3101455285610715336}
+        m_MethodName: UpdateFaceDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f0c04224-f43f-44de-b4e7-55d782a49ca1
     m_ActionName: Game/Move[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -468,25 +519,6 @@ MonoBehaviour:
   m_DefaultActionMap: Game
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!95 &3101455285610715335
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3101455285610715340}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9d4de1e80afb4b943ad94ee4d00c0211, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3101455285862564703
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +529,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3101455285862564700}
   - component: {fileID: 3101455285862564701}
+  - component: {fileID: 1525050034}
   m_Layer: 0
   m_Name: Seed
   m_TagString: Untagged
@@ -558,7 +591,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d235cf1128009e741815b51aceb983ca, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -568,3 +601,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1525050034
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101455285862564703}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 50f4f1e63ecbd1e46a6c7455db57a6d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
