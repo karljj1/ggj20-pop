@@ -42,7 +42,6 @@ public class SeedCharacterController : MonoBehaviour
 	public float downgradeWaitTime1;
 	public float downgradeWaitTime2;
 	public int startingBloomState;
-	public bool inWater;
 	#endregion
 	
 	#region Private variables
@@ -203,7 +202,6 @@ public class SeedCharacterController : MonoBehaviour
 	void CheckContacts()
 	{
 		CheckIfGrounded();
-		CheckIfWater();
 		CheckPassThroughPlatform();
 	}
 
@@ -214,15 +212,13 @@ public class SeedCharacterController : MonoBehaviour
 		else
 			canJump = false;
 	}
-	
-	void CheckIfWater()
-	{
-		if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, waterMask))
-		{
-			StartCoroutine("GrowingTransition");
-			
-		}
-	}
+
+    public void Heal()
+    {
+        m_CurrentState = Mathf.Max(0, m_CurrentState - 1);
+        ActivateState(m_CurrentState);
+        Healthbar.CurrentHealth = m_ActiveState.timeStart;
+    }
 
     void UpdateGrowingState()
     {
