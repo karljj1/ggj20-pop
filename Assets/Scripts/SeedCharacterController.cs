@@ -210,8 +210,10 @@ public class SeedCharacterController : MonoBehaviour
 	{
 		if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, groundMask))
 			canJump = true;
-		else
-			canJump = false;
+		else if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y / 2 + 0.1f, platformMask))
+            canJump = true;
+        else
+            canJump = false;
 	}
 
     public void Heal()
