@@ -387,7 +387,6 @@ MonoBehaviour:
   downgradeWaitTime1: 5
   downgradeWaitTime2: 2.25
   startingBloomState: 2
-  inWater: 0
   m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338
