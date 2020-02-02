@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 6cb6ecb23659f4b6d8e71663195231ff, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08cdc63a0652f4ae8b314a44b5a82778, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -269,7 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: 9b8bf875250abf14a97ae992cea64f52, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba77bb2e573cf470187cda2a4f808c91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -380,6 +380,7 @@ MonoBehaviour:
     jumpForce: 15
   popEffect: {fileID: 258188536224153451, guid: 4ae249540564f41aca25e957b7b96f0d,
     type: 3}
+  popOnStateChange: 1
   cameraFollowTarget: {fileID: 0}
   spriteRenderer: {fileID: 0}
   anim: {fileID: 0}
@@ -391,6 +392,7 @@ MonoBehaviour:
   downgradeWaitTime1: 5
   downgradeWaitTime2: 2.25
   startingBloomState: 2
+  keys: 0
   m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338
@@ -603,7 +605,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 100
-  m_Sprite: {fileID: 21300000, guid: d235cf1128009e741815b51aceb983ca, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc54204f6ff9d47f592d1ffbdc7b7ad1, type: 3}
   m_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
   m_FlipX: 0
   m_FlipY: 0
