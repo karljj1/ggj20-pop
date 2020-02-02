@@ -375,9 +375,9 @@ MonoBehaviour:
     blinkStart: 0.75
     jumpForce: 15
   - visuals: {fileID: 3101455285862564703}
-    timeStart: 0.3
+    timeStart: 0.4
     blinkStart: 0.35
-    jumpForce: 5
+    jumpForce: 7
   popEffect: {fileID: 258188536224153451, guid: 4ae249540564f41aca25e957b7b96f0d,
     type: 3}
   popOnStateChange: 1
@@ -393,7 +393,7 @@ MonoBehaviour:
   downgradeWaitTime2: 2.25
   startingBloomState: 2
   keys: 0
-  m_MoveDir: -1
+  m_MoveDir: 0
   bloomState: 0
 --- !u!50 &3101455285610715338
 Rigidbody2D:
