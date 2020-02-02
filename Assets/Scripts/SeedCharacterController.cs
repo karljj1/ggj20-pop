@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Principal;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -253,8 +254,14 @@ public class SeedCharacterController : MonoBehaviour
                 m_ActiveState.visuals.SetActive(false);
                 Instantiate(popEffect, m_ActiveState.visuals.transform.position, Quaternion.identity);
                 enabled = false;
+                Invoke("ResetLevel", 3);
             }
         }
+    }
+
+    void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void ActivateState(int state)
